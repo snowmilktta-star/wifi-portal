@@ -46,50 +46,44 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>itweba Guest Wi-Fi</h1>
-        <p>歡迎使用我們的訪客網路。點擊下方按鈕即代表您同意本公司的網路使用規範：請勿進行非法下載、駭客攻擊或散佈違法內容。</p>
-        
-        <button class="btn" onclick="submitAuth()">接受並連線 (Accept)</button>
-        
-        <div class="footer">
-            Powered by Aruba Instant On
-        </div>
-    </div>
+    <b>訪客無線網路使用條款 / Guest Wi-Fi Terms of Use</b><br><br>
 
-    <script>
-        function submitAuth() {
-            // 1. 抓取網址中的所有參數 (Aruba 會自動帶入 user_mac, ap_mac 等)
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // 2. 建立一個隱藏的表單
-            const form = document.createElement('form');
-            form.method = 'POST';
-            
-            // 這裡必須與您在 Aruba 後台「外部門戶設定檔」填寫的 IP/URL 一致
-            form.action = 'https://securelogin.arubanetworks.com/cgi-bin/login';
+歡迎使用本公司提供之訪客無線網路服務。為確保網路安全與服務品質，請於使用前詳閱並同意以下條款。<br>
+Welcome to our Guest Wi-Fi service. Please read and agree to the following terms before accessing the network.<br><br>
 
-            // 3. 將原有的網址參數全部加入表單中
-            urlParams.forEach((value, key) => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
-            });
+<b>一、使用規範 / Acceptable Use</b><br>
+1. 本網路僅供合法用途使用。<br>
+   This network is for lawful use only.<br>
+2. 禁止從事任何違反法律之行為（如非法下載、入侵系統等）。<br>
+   Any illegal activities (such as unauthorized access, piracy, or hacking) are strictly prohibited.<br>
+3. 不得進行任何影響網路效能或安全之行為。<br>
+   Users shall not perform actions that may degrade network performance or compromise security.<br><br>
 
-            // 4. 加入與後台配對的「身份驗證文字」
-            // 注意：name 必須是 user_password，value 必須等於您後台設定的文字
-            const authInput = document.createElement('input');
-            authInput.type = 'hidden';
-            authInput.name = 'user_password';
-            authInput.value = 'Authenticated'; 
-            form.appendChild(authInput);
+<b>二、安全聲明 / Security Notice</b><br>
+1. 本網路為公開網路環境，資料傳輸可能存在風險。<br>
+   This is a public network and data transmission may not be secure.<br>
+2. 建議使用者透過 HTTPS 或 VPN 進行資料保護。<br>
+   Users are advised to use HTTPS or VPN to protect their data.<br>
+3. 使用者應自行負責其設備與資料之安全。<br>
+   Users are responsible for securing their own devices and data.<br><br>
 
-            // 5. 將表單加入頁面並執行提交
-            document.body.appendChild(form);
-            form.submit();
-        }
-    </script>
+<b>三、責任限制 / Limitation of Liability</b><br>
+1. 本公司不對因使用本網路所導致之資料遺失或損害負責。<br>
+   The company shall not be liable for any data loss or damages arising from the use of this network.<br>
+2. 使用本服務所產生之風險由使用者自行承擔。<br>
+   All risks associated with the use of this service are borne by the user.<br><br>
+
+<b>四、使用紀錄 / Logging Policy</b><br>
+為維護資訊安全，本網路可能記錄連線資訊（如 IP 位址、裝置 MAC、連線時間等）。<br>
+For security purposes, network usage may be logged (including IP address, MAC address, and connection time).<br><br>
+
+<b>五、條款接受 / Acceptance</b><br>
+點擊「Accept」即表示您已閱讀、了解並同意上述條款。<br>
+By clicking "Accept", you acknowledge that you have read, understood, and agreed to these terms.<br><br>
+
+感謝您的配合，祝您使用愉快。<br>
+Thank you and enjoy your internet access.
+
+   
 </body>
 </html>
