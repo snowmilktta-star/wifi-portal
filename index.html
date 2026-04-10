@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>itweba Guest Wi-Fi</title>
+    <style>
+        /* 基礎樣式：確保手機瀏覽器顯示美觀 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f7f9;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-width: 400px;
+            width: 85%;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 1rem; color: #00a1e1; }
+        p { font-size: 0.9rem; line-height: 1.5; color: #666; margin-bottom: 1.5rem; }
+        .btn {
+            background-color: #00a1e1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn:active { background-color: #007bb1; }
+        .footer { margin-top: 1.5rem; font-size: 0.75rem; color: #999; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>itweba Guest Wi-Fi</h1>
+        <p>歡迎使用我們的訪客網路。點擊下方按鈕即代表您同意本公司的網路使用規範：請勿進行非法下載、駭客攻擊或散佈違法內容。</p>
+        
+        <button class="btn" onclick="submitAuth()">接受並連線 (Accept)</button>
+        
+        <div class="footer">
+            Powered by Aruba Instant On
+        </div>
+    </div>
+
+    <script>
+        function submitAuth() {
+            // 1. 抓取網址中的所有參數 (Aruba 會自動帶入 user_mac, ap_mac 等)
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // 2. 建立一個隱藏的表單
+            const form = document.createElement('form');
+            form.method = 'POST';
+            
+            // 這裡必須與您在 Aruba 後台「外部門戶設定檔」填寫的 IP/URL 一致
+            form.action = 'https://securelogin.arubanetworks.com/cgi-bin/login';
+
+            // 3. 將原有的網址參數全部加入表單中
+            urlParams.forEach((value, key) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            });
+
+            // 4. 加入與後台配對的「身份驗證文字」
+            // 注意：name 必須是 user_password，value 必須等於您後台設定的文字
+            const authInput = document.createElement('input');
+            authInput.type = 'hidden';
+            authInput.name = 'user_password';
+            authInput.value = 'Authenticated'; 
+            form.appendChild(authInput);
+
+            // 5. 將表單加入頁面並執行提交
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>
